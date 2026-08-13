@@ -8,6 +8,10 @@ import {PermissionType} from "../enums/permission-types";
 
 const router = Router();
 
+// Viewing car ads is available to everyone, including unauthenticated users.
+// The owner of an ad can create, update, and delete their own ads.
+// Managers are also allowed to delete ads as part of content moderation.
+
 router.get(
     '/',
     carAdController.GetAllCarAds

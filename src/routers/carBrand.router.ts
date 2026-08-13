@@ -8,6 +8,9 @@ import {CarBrandValidator} from "../validators/carBrand.validator";
 
 const router = Router();
 
+// Creating, updating, and deleting car brands requires corresponding permissions.
+// Reading car brands is public and available to all users, including guests.
+
 router.get(
     '/',
     authMiddleware.checkAccessToken(),

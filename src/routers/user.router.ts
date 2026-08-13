@@ -24,7 +24,7 @@ router.delete(
     userController.DeleteUserById);
 
 router.patch(
-    '/updateAccountTypy',
+    '/updateAccountType',
     authMiddleware.checkAccessToken(),
     userController.UpdateAccountType
 )

@@ -22,6 +22,16 @@ export class UserValidator {
         roleId: this.roleId.required(),
     });
 
+    public static signUp = joi.object({
+        name: this.name.required(),
+        surname: this.surname.required(),
+        age: this.age.required(),
+        phone: this.phone.required(),
+        password: this.password.required(),
+        email: this.email.required(),
+        roleId: this.roleId.required(),
+    });
+
     public static update = joi.object({
         name: this.name.required(),
         surname: this.surname.required(),

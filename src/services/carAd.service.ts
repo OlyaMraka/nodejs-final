@@ -20,6 +20,10 @@ class CarAdService {
     public async getAll(): Promise<ICarAdResponse[]> {
         const ads = await carAdRepository.getAll();
 
+        if(ads.length === 0) {
+            throw new ApiError(StatusCodes.NOT_FOUND, "Car ads not found!")
+        }
+
         return Promise.all(
             ads.map(ad => this.mapToResponse(ad))
         );
@@ -28,11 +32,19 @@ class CarAdService {
     public async getById(carAdId: string): Promise<ICarAdResponse> {
         const ad = await carAdRepository.getById(carAdId);
 
+        if(!ad) {
+            throw new ApiError(StatusCodes.NOT_FOUND, "Car Ad not found!")
+        }
+
         return this.mapToResponse(ad);
     }
 
     public async getByUserId(userId: string): Promise<ICarAdResponse[]> {
         const ads = await carAdRepository.getByUserId(userId);
+
+        if(ads.length === 0) {
+            throw new ApiError(StatusCodes.NOT_FOUND, "Car ads not found!")
+        }
 
         return Promise.all(
             ads.map(ad => this.mapToResponse(ad))

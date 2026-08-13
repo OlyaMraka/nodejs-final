@@ -8,6 +8,9 @@ import {CarModelValidator} from "../validators/carModel.validator";
 
 const router = Router();
 
+// Creating, updating, and deleting car models requires corresponding permissions.
+// Reading car models is public and available to all users, including guests.
+
 router.get(
     '/',
     authMiddleware.checkAccessToken(),

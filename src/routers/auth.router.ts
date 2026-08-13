@@ -9,7 +9,7 @@ const router = Router();
 
 router.post(
     "/sign-up",
-    commonMiddleware.validateBody(UserValidator.create),
+    commonMiddleware.validateBody(UserValidator.signUp),
     authController.SignUp
 );
 
