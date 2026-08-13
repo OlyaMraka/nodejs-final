@@ -1,0 +1,45 @@
+<style>
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 24px;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .warning {
+        padding: 12px;
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        border-radius: 6px;
+        margin: 16px 0;
+    }
+
+    .info {
+        background: #f8f9fa;
+        padding: 16px;
+        border-radius: 6px;
+    }
+
+    .info p {
+        margin: 8px 0;
+    }
+</style>
+
+<div class="container">
+
+    <h2>Advertisement Requires Review</h2>
+
+    <div class="warning">
+        The advertisement failed profanity validation 3 times and has been moved to the INACTIVE status.
+    </div>
+
+    <p>Please review the seller and the advertisement manually.</p>
+
+    <div class="info">
+        <p><strong>First Name:</strong> {{firstName}}</p>
+        <p><strong>Last Name:</strong> {{lastName}}</p>
+        <p><strong>Email:</strong> {{email}}</p>
+    </div>
+
+</div>

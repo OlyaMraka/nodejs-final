@@ -11,7 +11,6 @@ const router = Router();
 router.get(
     '/',
     authMiddleware.checkAccessToken(),
-    permissionMiddleware.checkPermission(PermissionType.MANAGE_MODELS),
     carModelController.GetAllCarModels
 );
 
@@ -27,7 +26,6 @@ router.get(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
-    permissionMiddleware.checkPermission(PermissionType.MANAGE_MODELS),
     carModelController.GetCarModelById
 );
 
@@ -52,7 +50,6 @@ router.get(
     '/carBrandModels/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
-    permissionMiddleware.checkPermission(PermissionType.MANAGE_MODELS),
     carModelController.GetCarModelByCarBrandId
 );
 

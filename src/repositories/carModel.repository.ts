@@ -20,7 +20,7 @@ class CarModelRepository {
     }
 
     public updateById(carModelId: string, carModel: CarModelDto): Promise<ICarModel> {
-        return CarModel.findByIdAndUpdate(carModelId, carModel);
+        return CarModel.findByIdAndUpdate(carModelId, carModel, { returnDocument: 'after' });
     }
 
     public deleteById(carModelId: string): Promise<ICarModel> {

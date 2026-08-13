@@ -1,6 +1,7 @@
-import {ICarAd} from "../interfaces/carAd";
+import {ICarAd} from "../interfaces/carAdю.interface";
 import {CarAd} from "../models/carAd.model";
 import {CreateCarAdDto, UpdateCarAdDto} from "../dtos/car.dto";
+import {Country} from "../enums/country.enum";
 
 class CarAdRepository {
     public getAll(): Promise<ICarAd[]> {
@@ -20,11 +21,19 @@ class CarAdRepository {
     }
 
     public updateById(carAdId: string, carAd: UpdateCarAdDto): Promise<ICarAd> {
-        return CarAd.findByIdAndUpdate(carAdId, carAd);
+        return CarAd.findByIdAndUpdate(carAdId, carAd, { returnDocument: 'after' });
     }
 
     public deleteById(carAdId: string): Promise<ICarAd> {
         return CarAd.findByIdAndDelete(carAdId);
+    }
+
+    public getByCountryAndModel(country: Country, carBrandId: string, carModelId: string): Promise<ICarAd[]> {
+        return CarAd.find({country, carBrandId, carModelId});
+    }
+
+    public getByRegionAndModel(region: string, carBrandId: string, carModelId: string): Promise<ICarAd[]> {
+        return CarAd.find({region, carBrandId, carModelId});
     }
 }
 

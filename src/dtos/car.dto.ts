@@ -1,6 +1,6 @@
 import {ICarBrand} from "../interfaces/carBrand.interface";
 import {ICarModel} from "../interfaces/carModel.interface";
-import {ICarAd} from "../interfaces/carAd";
+import {ICarAd} from "../interfaces/carAdю.interface";
 
 type CarBrandDto = Pick<ICarBrand, "name">;
 type CarModelDto = Pick<ICarModel, "name" | "carBrandId">;
@@ -10,9 +10,11 @@ type CreateCarAdDto = Pick<ICarAd,
     "year" |
     "currency" |
     "description" |
-    "location" |
+    "country" |
+    "region" |
     "price" |
-    "userId">;
+    "userId" |
+    "adStatus">;
 
 type UpdateCarAdDto = Pick<ICarAd,
     "carBrandId" |
@@ -20,8 +22,10 @@ type UpdateCarAdDto = Pick<ICarAd,
     "year" |
     "currency" |
     "description" |
-    "location" |
+    "country" |
+    "region" |
     "price" |
-    "userId">;
+    "adStatus" |
+    "failedEditAttempts">;
 
 export { CarBrandDto, CarModelDto, CreateCarAdDto, UpdateCarAdDto };

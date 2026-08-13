@@ -3,6 +3,7 @@ export enum PermissionType {
     UPDATE_AD = "update-ad",
     DELETE_AD = "delete-ad",
 
+    MANAGE_ROLES = "manage-roles",
     MANAGE_BRANDS = "manage-brands",
     MANAGE_MODELS = "manage-models",
 

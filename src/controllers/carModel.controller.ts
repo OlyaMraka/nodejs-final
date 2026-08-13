@@ -58,7 +58,7 @@ class CarModelController {
         try {
             const {id} = req.params;
             const data = await carModelService.deleteById(id as string);
-            res.status(StatusCodes.OK).json(data);
+            res.status(StatusCodes.NO_CONTENT).json(data);
         } catch (error) {
             next(error);
         }

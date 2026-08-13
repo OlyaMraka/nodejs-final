@@ -23,6 +23,10 @@ class UserService {
         return user;
     }
 
+    public getManager(): Promise<IUser> {
+        return userRepository.getManager();
+    }
+
     public async deleteById(userId: string): Promise<IUser> {
         return await userRepository.deleteById(userId);
     }

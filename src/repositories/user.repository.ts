@@ -1,6 +1,7 @@
 import {IUser} from "../interfaces/user.interface";
 import {User} from "../models/user.model";
 import {UserCreateDto, UserUpdateDto} from "../dtos/user.dto";
+import {roleRepository} from "./role.repository";
 
 class UserRepository {
     public getAll(): Promise<IUser[]> {
@@ -15,12 +16,24 @@ class UserRepository {
         return User.findById(userId);
     }
 
+    public async getManager(): Promise<IUser> {
+        const managerRole = await roleRepository.getByRoleName("manager");
+
+        const managers = await User.find({
+            roleId: managerRole._id
+        });
+
+        const randomIndex = Math.floor(Math.random() * managers.length);
+
+        return managers[randomIndex];
+    }
+
     public deleteById(userId: string): Promise<IUser> {
         return User.findByIdAndDelete(userId);
     }
 
     public updateById(userId: string, user: UserUpdateDto): Promise<IUser> {
-        return User.findByIdAndUpdate(userId, user);
+        return User.findByIdAndUpdate(userId, user, { returnDocument: 'after' });
     }
 
     public getByEmail(email: string): Promise<IUser> {

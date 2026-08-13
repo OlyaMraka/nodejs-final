@@ -18,12 +18,16 @@ class RoleRepository {
         });
     }
 
+    public getByRoleName(roleName: string): Promise<IRole> {
+        return Role.findOne({ name: roleName });
+    }
+
     public create(role: RoleDto): Promise<IRole> {
         return Role.create(role);
     }
 
     public updateById(roleId: string, role: RoleDto): Promise<IRole> {
-        return Role.findByIdAndUpdate(roleId, role);
+        return Role.findByIdAndUpdate(roleId, role, { returnDocument: 'after' });
     }
 
     public deleteById(roleId: string): Promise<IRole> {

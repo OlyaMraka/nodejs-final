@@ -1,0 +1,3 @@
+export const TemplateNames = {
+    BLOCK_AD_DUE_TO_BAD_WORDS: "invalidAd"
+}

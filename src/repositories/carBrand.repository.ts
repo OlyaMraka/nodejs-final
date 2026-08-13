@@ -16,7 +16,7 @@ class CarBrandRepository {
     }
 
     public updateById(carBrandId: string, carBrand: CarBrandDto): Promise<ICarBrand> {
-        return CarBrand.findByIdAndUpdate(carBrandId, carBrand);
+        return CarBrand.findByIdAndUpdate(carBrandId, carBrand, { returnDocument: 'after' });
     }
 
     public deleteById(carBrandId: string): Promise<ICarBrand> {

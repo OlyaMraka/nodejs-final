@@ -29,5 +29,5 @@ export class UserValidator {
         phone: this.phone.required(),
         email: this.email.required(),
         accountType: this.accountType.required(),
-    })
+    });
 }

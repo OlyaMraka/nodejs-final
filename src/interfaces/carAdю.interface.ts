@@ -1,5 +1,7 @@
 import {IBase} from "./base.interface";
 import {Currency} from "../enums/currency.enum";
+import {Country} from "../enums/country.enum";
+import {AdStatus} from "../enums/adStatus";
 
 export interface ICarAd extends IBase {
     _id: string;
@@ -10,5 +12,8 @@ export interface ICarAd extends IBase {
     year: number;
     currency: Currency;
     price: number;
-    location: string;
+    country: Country;
+    region: string;
+    adStatus: AdStatus;
+    failedEditAttempts: number;
 }

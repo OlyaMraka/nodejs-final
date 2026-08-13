@@ -4,6 +4,7 @@ import {roleRouter} from "./role.router";
 import {authRouter} from "./auth.router";
 import {carBrandRouter} from "./carBrand.router";
 import {carModelRouter} from "./carModel.router";
+import {carAdRouter} from "./carAd.router";
 
 const router = Router();
 
@@ -12,5 +13,6 @@ router.use("/roles", roleRouter);
 router.use("/auth", authRouter);
 router.use("/carBrands", carBrandRouter);
 router.use("/carModels", carModelRouter);
+router.use("/carAds", carAdRouter);
 
 export const apiRouter = router;

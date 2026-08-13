@@ -2,8 +2,10 @@ import {model, Schema} from "mongoose";
 import {CarModel} from "./carModel.model";
 import {Currency} from "../enums/currency.enum";
 import {CarBrand} from "./carBrand.model";
-import {ICarAd} from "../interfaces/carAd";
+import {ICarAd} from "../interfaces/carAdю.interface";
 import {User} from "./user.model";
+import {Country} from "../enums/country.enum";
+import {AdStatus} from "../enums/adStatus";
 
 const carAdSchema = new Schema(
     {
@@ -15,7 +17,10 @@ const carAdSchema = new Schema(
         currency: { type: String, enum: Object.values(Currency), required: true,
             default: Currency.USD },
         price: { type: Number, required: true },
-        location: { type: String, required: true }
+        country: { type: String, enum: Object.values(Country), required: true },
+        region: { type: String, required: true },
+        adStatus: { type: String, enum: Object.values(AdStatus), required: true },
+        failedEditAttempts: { type: Number, default: 0 },
     },
     {
         timestamps: true,
