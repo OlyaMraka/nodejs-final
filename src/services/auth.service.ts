@@ -9,10 +9,17 @@ import {tokenRepository} from "../repositories/token.repository";
 import {SignInDto} from "../dtos/auth.dto";
 import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
+import {ServiceConstants} from "../constants/error.constants";
+import {roleRepository} from "../repositories/role.repository";
+import {RoleName} from "../enums/role.enum";
 
 class AuthService {
     public async signUp(user: UserCreateDto): Promise<{user: IUser, token: TokenPair}>{
         await userService.isEmailUnique(user.email);
+
+        const baseRole = await roleRepository.getByRoleName(RoleName.SELLER);
+        user.roleId = baseRole._id;
+
         const password = await passwordService.hashPassword(user.password);
         const newUser = await userRepository.create({...user, password});
         const token = tokenService.generateTokens({
@@ -31,7 +38,7 @@ class AuthService {
         const isPasswordValid = await passwordService.comparePassword(credentials.password, user.password);
 
         if(!isPasswordValid) {
-            throw new ApiError(StatusCodes.UNAUTHORIZED, "Invalid email or password");
+            throw new ApiError(StatusCodes.UNAUTHORIZED, ServiceConstants.INVALID_EMAIL_OR_PASSWORD);
         }
 
         const token = tokenService.generateTokens({

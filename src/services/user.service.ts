@@ -4,6 +4,7 @@ import {UserCreateDto, UserUpdateDto} from "../dtos/user.dto";
 import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
 import {AccountTypes} from "../enums/account-types";
+import {ServiceConstants} from "../constants/error.constants";
 
 class UserService {
     public async getAll(): Promise<IUser[]> {
@@ -18,7 +19,7 @@ class UserService {
         const user = await userRepository.getById(userId);
 
         if(!user) {
-            throw new ApiError(StatusCodes.NOT_FOUND, "User not found");
+            throw new ApiError(StatusCodes.NOT_FOUND, ServiceConstants.USER_NOT_FOUND);
         }
 
         return user;
@@ -43,7 +44,7 @@ class UserService {
     public async isEmailUnique(email: string): Promise<void> {
         const user = await userRepository.getByEmail(email);
         if (user) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, "User already exists");
+            throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.USER_ALREADY_EXISTS);
         }
     }
 }

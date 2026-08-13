@@ -7,6 +7,7 @@ import {roleSeeder} from "./seeders/role.seeder";
 import {userSeeder} from "./seeders/user.seeder";
 import {carBrandSeeder} from "./seeders/carBrand.seeder";
 import {carModelSeeder} from "./seeders/carModel.seeder";
+import {carDealershipSeeder} from "./seeders/carDealership.seeder";
 import {carAdSeeder} from "./seeders/carAd.seeder";
 import {currencyRateSeeder} from "./seeders/currencyRate.seeder";
 
@@ -32,6 +33,7 @@ const dbConnection = async () => {
         await userSeeder.seed();
         await carBrandSeeder.seed();
         await carModelSeeder.seed();
+        await carDealershipSeeder.seed();
         await carAdSeeder.seed();
     } catch (e) {
         console.error(e);

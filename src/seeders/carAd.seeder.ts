@@ -6,6 +6,7 @@ import { Role } from "../models/role.model";
 import { Currency } from "../enums/currency.enum";
 import { Country } from "../enums/country.enum";
 import { AdStatus } from "../enums/adStatus";
+import {RoleName} from "../enums/role.enum";
 
 class CarAdSeeder {
     public async seed(): Promise<void> {
@@ -17,7 +18,7 @@ class CarAdSeeder {
         }
 
         const sellerRole = await Role.findOne({
-            name: "seller",
+            name: RoleName.SELLER,
         });
 
         if (!sellerRole) {

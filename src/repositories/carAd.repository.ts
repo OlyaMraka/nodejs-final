@@ -13,7 +13,7 @@ class CarAdRepository {
     }
 
     public getByUserId(userId: string): Promise<ICarAd[]> {
-        return CarAd.find({userId}).lean();;
+        return CarAd.find({userId}).lean();
     }
 
     public create(carAd: CreateCarAdDto): Promise<ICarAd> {

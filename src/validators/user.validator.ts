@@ -29,7 +29,6 @@ export class UserValidator {
         phone: this.phone.required(),
         password: this.password.required(),
         email: this.email.required(),
-        roleId: this.roleId.required(),
     });
 
     public static update = joi.object({

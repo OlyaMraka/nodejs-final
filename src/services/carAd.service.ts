@@ -15,13 +15,14 @@ import {Country} from "../enums/country.enum";
 import {currencyService} from "./currency.service";
 import {ICarAdStatistics} from "../interfaces/carAdStatistics.interface";
 import {carAdViewService} from "./carAdView.service";
+import {ServiceConstants} from "../constants/error.constants";
 
 class CarAdService {
     public async getAll(): Promise<ICarAdResponse[]> {
         const ads = await carAdRepository.getAll();
 
         if(ads.length === 0) {
-            throw new ApiError(StatusCodes.NOT_FOUND, "Car ads not found!")
+            throw new ApiError(StatusCodes.NOT_FOUND, ServiceConstants.CAR_ADS_NOT_FOUND)
         }
 
         return Promise.all(
@@ -33,7 +34,7 @@ class CarAdService {
         const ad = await carAdRepository.getById(carAdId);
 
         if(!ad) {
-            throw new ApiError(StatusCodes.NOT_FOUND, "Car Ad not found!")
+            throw new ApiError(StatusCodes.NOT_FOUND, ServiceConstants.CAR_AD_NOT_FOUND)
         }
 
         return this.mapToResponse(ad);
@@ -43,7 +44,7 @@ class CarAdService {
         const ads = await carAdRepository.getByUserId(userId);
 
         if(ads.length === 0) {
-            throw new ApiError(StatusCodes.NOT_FOUND, "Car ads not found!")
+            throw new ApiError(StatusCodes.NOT_FOUND, ServiceConstants.CAR_ADS_NOT_FOUND)
         }
 
         return Promise.all(
@@ -68,7 +69,7 @@ class CarAdService {
     public async updateById(carAdId: string, carAd: UpdateCarAdDto): Promise<ICarAd> {
         const carAdSavedInDb = await this.getById(carAdId);
         if(!carAdSavedInDb) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, "No such ad found");
+            throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.CAR_AD_NOT_FOUND);
         }
 
         if (await this.containsBadWords(carAd.description)) {
@@ -87,7 +88,7 @@ class CarAdService {
 
             await emailService.sendEmail(
                 manager.email,
-                "Invalid ad description",
+                ServiceConstants.INVALID_AD_DESCRIPTION,
                 TemplateNames.BLOCK_AD_DUE_TO_BAD_WORDS,
                 {
                     firstName: creator.name,
@@ -108,12 +109,12 @@ class CarAdService {
     private async checkCarAdReferences(carBrandId: string, carModelId: string): Promise<void> {
         const carBrand = await carBrandService.getById(carBrandId);
         if(!carBrand) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, "Invalid car brand");
+            throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.INVALID_CAR_BRAND);
         }
 
         const carModel = await carModelService.getById(carModelId);
         if(!carModel) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, "Invalid car model");
+            throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.INVALID_CAR_MODEL);
         }
     }
 
@@ -193,7 +194,7 @@ class CarAdService {
         if (user.accountType !== AccountTypes.PREMIUM) {
             throw new ApiError(
                 StatusCodes.FORBIDDEN,
-                "Statistics are available only for premium accounts"
+                ServiceConstants.STATISTICS_AVAILABLE_FOR_PREMIUM
             );
         }
 
@@ -239,12 +240,12 @@ class CarAdService {
     private async checkCarAdCreator(userId: string): Promise<void> {
         const creator = await userService.getById(userId);
         if(!creator) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, "Invalid user");
+            throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.USER_NOT_FOUND);
         }
 
         const userAds = await carAdService.getByUserId(userId);
         if(creator.accountType === AccountTypes.BASIC && userAds.length > 0) {
-            throw new ApiError(StatusCodes.FORBIDDEN, "A basic account allows you to publish one ad.");
+            throw new ApiError(StatusCodes.FORBIDDEN, ServiceConstants.BASIC_ACCOUNT_ALLOWS_ONE_AD);
         }
     }
 

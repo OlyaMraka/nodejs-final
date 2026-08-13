@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import {User} from "../models/user.model";
 import {Role} from "../models/role.model";
 import {AccountTypes} from "../enums/account-types";
+import {RoleName} from "../enums/role.enum";
 
 class UserSeeder {
     public async seed(): Promise<void> {
@@ -12,9 +13,9 @@ class UserSeeder {
             return;
         }
 
-        const sellerRole = await Role.findOne({name: "seller"});
-        const managerRole = await Role.findOne({name: "manager"});
-        const adminRole = await Role.findOne({name: "admin"});
+        const sellerRole = await Role.findOne({name: RoleName.SELLER});
+        const managerRole = await Role.findOne({name: RoleName.MANAGER});
+        const adminRole = await Role.findOne({name: RoleName.ADMIN});
 
         if (!sellerRole || !managerRole || !adminRole) {
             throw new Error("Roles not found. Run role seeder first.");

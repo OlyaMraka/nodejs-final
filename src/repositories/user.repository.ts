@@ -3,6 +3,7 @@ import {User} from "../models/user.model";
 import {UserCreateDto, UserUpdateDto} from "../dtos/user.dto";
 import {roleRepository} from "./role.repository";
 import {AccountTypes} from "../enums/account-types";
+import {RoleName} from "../enums/role.enum";
 
 class UserRepository {
     public getAll(): Promise<IUser[]> {
@@ -18,7 +19,7 @@ class UserRepository {
     }
 
     public async getManager(): Promise<IUser> {
-        const managerRole = await roleRepository.getByRoleName("manager");
+        const managerRole = await roleRepository.getByRoleName(RoleName.MANAGER);
 
         const managers = await User.find({
             roleId: managerRole._id

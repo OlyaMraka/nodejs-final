@@ -4,6 +4,7 @@ import {roleService} from "../services/role.service";
 import {PermissionType} from "../enums/permission-types";
 import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
+import {MiddlewareConstants} from "../constants/error.constants";
 
 class PermissionMiddleware {
     public checkPermission(permission: PermissionType) {
@@ -24,7 +25,7 @@ class PermissionMiddleware {
                 );
 
                 if (!hasPermission) {
-                    throw new ApiError(StatusCodes.FORBIDDEN, "Access denied");
+                    throw new ApiError(StatusCodes.FORBIDDEN, MiddlewareConstants.ACCESS_DENIED);
                 }
 
                 next();

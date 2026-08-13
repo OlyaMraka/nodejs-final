@@ -3,6 +3,7 @@ import {Request, Response, NextFunction} from "express";
 import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
 import {isObjectIdOrHexString} from "mongoose";
+import {MiddlewareConstants} from "../constants/error.constants";
 
 class CommonMiddleware {
     public isIdValid(key: string) {
@@ -11,7 +12,7 @@ class CommonMiddleware {
                 const { id } = req.params;
 
                 if(!isObjectIdOrHexString(id)) {
-                    throw new ApiError(StatusCodes.BAD_REQUEST, "Invalid Id");
+                    throw new ApiError(StatusCodes.BAD_REQUEST, MiddlewareConstants.INVALID_ID);
                 }
 
                 next();

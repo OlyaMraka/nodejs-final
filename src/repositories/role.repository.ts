@@ -2,6 +2,7 @@ import {IRole} from "../interfaces/role.interface";
 import {Role} from "../models/role.model";
 import {RoleDto} from "../dtos/role.dto";
 import {PermissionType} from "../enums/permission-types";
+import {RoleName} from "../enums/role.enum";
 
 class RoleRepository {
     public getAll(): Promise<IRole[]> {
@@ -18,7 +19,7 @@ class RoleRepository {
         });
     }
 
-    public getByRoleName(roleName: string): Promise<IRole> {
+    public getByRoleName(roleName: RoleName): Promise<IRole> {
         return Role.findOne({ name: roleName });
     }
 
