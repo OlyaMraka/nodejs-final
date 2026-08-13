@@ -2,6 +2,7 @@ import {IUser} from "../interfaces/user.interface";
 import {User} from "../models/user.model";
 import {UserCreateDto, UserUpdateDto} from "../dtos/user.dto";
 import {roleRepository} from "./role.repository";
+import {AccountTypes} from "../enums/account-types";
 
 class UserRepository {
     public getAll(): Promise<IUser[]> {
@@ -38,6 +39,10 @@ class UserRepository {
 
     public getByEmail(email: string): Promise<IUser> {
         return User.findOne({ email });
+    }
+
+    public updateAccountType(userId: string, accountType: AccountTypes): Promise<IUser> {
+        return User.findByIdAndUpdate(userId, { accountType }, { returnDocument: 'after' });
     }
 }
 

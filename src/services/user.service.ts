@@ -3,6 +3,7 @@ import {IUser} from "../interfaces/user.interface";
 import {UserCreateDto, UserUpdateDto} from "../dtos/user.dto";
 import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
+import {AccountTypes} from "../enums/account-types";
 
 class UserService {
     public async getAll(): Promise<IUser[]> {
@@ -33,6 +34,10 @@ class UserService {
 
     public async updateById(userId: string, user: UserUpdateDto): Promise<IUser> {
         return await userRepository.updateById(userId, user);
+    }
+
+    public async updateAccountType(userId: string, accountType: AccountTypes): Promise<IUser> {
+        return await userRepository.updateAccountType(userId, accountType);
     }
 
     public async isEmailUnique(email: string): Promise<void> {

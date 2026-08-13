@@ -23,4 +23,10 @@ router.delete(
     commonMiddleware.isIdValid("id"),
     userController.DeleteUserById);
 
+router.patch(
+    '/updateAccountTypy',
+    authMiddleware.checkAccessToken(),
+    userController.UpdateAccountType
+)
+
 export const userRouter = router;

@@ -1,4 +1,4 @@
-import {ICarAd} from "../interfaces/carAdю.interface";
+import {ICarAd, ICarAdResponse} from "../interfaces/carAd.interface";
 import {carAdRepository} from "../repositories/carAd.repository";
 import {CreateCarAdDto, UpdateCarAdDto} from "../dtos/car.dto";
 import {userService} from "./user.service";
@@ -17,16 +17,26 @@ import {ICarAdStatistics} from "../interfaces/carAdStatistics.interface";
 import {carAdViewService} from "./carAdView.service";
 
 class CarAdService {
-    public getAll(): Promise<ICarAd[]> {
-        return carAdRepository.getAll();
+    public async getAll(): Promise<ICarAdResponse[]> {
+        const ads = await carAdRepository.getAll();
+
+        return Promise.all(
+            ads.map(ad => this.mapToResponse(ad))
+        );
     }
 
-    public getById(carAdId: string): Promise<ICarAd> {
-        return carAdRepository.getById(carAdId);
+    public async getById(carAdId: string): Promise<ICarAdResponse> {
+        const ad = await carAdRepository.getById(carAdId);
+
+        return this.mapToResponse(ad);
     }
 
-    public getByUserId(userId: string): Promise<ICarAd[]> {
-        return carAdRepository.getByUserId(userId);
+    public async getByUserId(userId: string): Promise<ICarAdResponse[]> {
+        const ads = await carAdRepository.getByUserId(userId);
+
+        return Promise.all(
+            ads.map(ad => this.mapToResponse(ad))
+        );
     }
 
     public async create(carAd: CreateCarAdDto): Promise<ICarAd> {
@@ -95,7 +105,12 @@ class CarAdService {
         }
     }
 
-    public async getAveragePriceByCountry(country: Country, carBrandId: string, carModelId: string): Promise<number> {
+    public async getAveragePriceByCountry(
+        country: Country,
+        carBrandId: string,
+        carModelId: string
+    ): Promise<number> {
+
         const ads = await carAdRepository.getByCountryAndModel(
             country,
             carBrandId,
@@ -106,20 +121,29 @@ class CarAdService {
             return 0;
         }
 
-        const total = ads.reduce(
-            (sum, ad) =>
-                sum +
+        const pricesInUAH = await Promise.all(
+            ads.map(ad =>
                 currencyService.convertToUAH(
                     ad.price,
                     ad.currency
-                ),
+                )
+            )
+        );
+
+        const total = pricesInUAH.reduce(
+            (sum, price) => sum + price,
             0
         );
 
         return Math.round(total / ads.length);
     }
 
-    public async getAveragePriceByRegion(region: string, carBrandId: string, carModelId: string): Promise<number> {
+    public async getAveragePriceByRegion(
+        region: string,
+        carBrandId: string,
+        carModelId: string
+    ): Promise<number> {
+
         const ads = await carAdRepository.getByRegionAndModel(
             region,
             carBrandId,
@@ -130,13 +154,17 @@ class CarAdService {
             return 0;
         }
 
-        const total = ads.reduce(
-            (sum, ad) =>
-                sum +
+        const pricesInUAH = await Promise.all(
+            ads.map(ad =>
                 currencyService.convertToUAH(
                     ad.price,
                     ad.currency
-                ),
+                )
+            )
+        );
+
+        const total = pricesInUAH.reduce(
+            (sum, price) => sum + price,
             0
         );
 
@@ -214,6 +242,20 @@ class CarAdService {
         return badWords.some(word =>
             normalizedText.includes(word)
         );
+    }
+
+    private async mapToResponse(ad: ICarAd): Promise<ICarAdResponse> {
+        const priceInfo = await currencyService.getPriceInfo(
+            ad.price,
+            ad.currency
+        );
+
+        const { price, currency, ...carAd } = ad;
+
+        return {
+            ...carAd,
+            priceInfo,
+        };
     }
 }
 

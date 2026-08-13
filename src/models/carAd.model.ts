@@ -2,7 +2,7 @@ import {model, Schema} from "mongoose";
 import {CarModel} from "./carModel.model";
 import {Currency} from "../enums/currency.enum";
 import {CarBrand} from "./carBrand.model";
-import {ICarAd} from "../interfaces/carAdю.interface";
+import {ICarAd} from "../interfaces/carAd.interface";
 import {User} from "./user.model";
 import {Country} from "../enums/country.enum";
 import {AdStatus} from "../enums/adStatus";

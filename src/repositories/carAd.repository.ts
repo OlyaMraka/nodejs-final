@@ -1,19 +1,19 @@
-import {ICarAd} from "../interfaces/carAdю.interface";
+import {ICarAd} from "../interfaces/carAd.interface";
 import {CarAd} from "../models/carAd.model";
 import {CreateCarAdDto, UpdateCarAdDto} from "../dtos/car.dto";
 import {Country} from "../enums/country.enum";
 
 class CarAdRepository {
     public getAll(): Promise<ICarAd[]> {
-        return CarAd.find();
+        return CarAd.find().lean();;
     }
 
     public getById(carAdId: string): Promise<ICarAd> {
-        return CarAd.findById(carAdId);
+        return CarAd.findById(carAdId).lean();;
     }
 
     public getByUserId(userId: string): Promise<ICarAd[]> {
-        return CarAd.find({userId});
+        return CarAd.find({userId}).lean();;
     }
 
     public create(carAd: CreateCarAdDto): Promise<ICarAd> {

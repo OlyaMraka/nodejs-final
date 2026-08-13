@@ -3,6 +3,12 @@ import * as mongoose from "mongoose";
 import {config} from "./configs/config";
 import {apiRouter} from "./routers/api.router";
 import {ApiError} from "./errors/api.error";
+import {roleSeeder} from "./seeders/role.seeder";
+import {userSeeder} from "./seeders/user.seeder";
+import {carBrandSeeder} from "./seeders/carBrand.seeder";
+import {carModelSeeder} from "./seeders/carModel.seeder";
+import {carAdSeeder} from "./seeders/carAd.seeder";
+import {currencyRateSeeder} from "./seeders/currencyRate.seeder";
 
 const app = express();
 app.use(express.json());
@@ -21,6 +27,12 @@ app.use(
 const dbConnection = async () => {
     try {
         await mongoose.connect(config.MONGO_URL!);
+        await roleSeeder.seed();
+        await currencyRateSeeder.seed();
+        await userSeeder.seed();
+        await carBrandSeeder.seed();
+        await carModelSeeder.seed();
+        await carAdSeeder.seed();
     } catch (e) {
         console.error(e);
     }
@@ -30,7 +42,7 @@ const startServer = async () => {
     try {
         await dbConnection();
         app.listen(config.PORT, () => {
-            console.log("server listening 2222");
+            console.log(`Server started on ${config.PORT}`);
         })
     } catch (e) {
         console.error(e);

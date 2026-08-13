@@ -17,3 +17,22 @@ export interface ICarAd extends IBase {
     adStatus: AdStatus;
     failedEditAttempts: number;
 }
+
+export interface IPriceInfo {
+    original: {
+        value: number;
+        currency: Currency;
+    };
+
+    converted: {
+        UAH: number;
+        USD: number;
+        EUR: number;
+    };
+}
+
+export interface ICarAdResponse
+    extends Omit<ICarAd, "price" | "currency"> {
+    priceInfo: IPriceInfo;
+}
+

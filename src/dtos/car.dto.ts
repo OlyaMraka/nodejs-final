@@ -1,6 +1,6 @@
 import {ICarBrand} from "../interfaces/carBrand.interface";
 import {ICarModel} from "../interfaces/carModel.interface";
-import {ICarAd} from "../interfaces/carAdю.interface";
+import {ICarAd} from "../interfaces/carAd.interface";
 
 type CarBrandDto = Pick<ICarBrand, "name">;
 type CarModelDto = Pick<ICarModel, "name" | "carBrandId">;
