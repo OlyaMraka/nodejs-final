@@ -12,7 +12,9 @@ export enum PermissionType {
     DELETE_CAR_DEALERSHIP = "delete-car-dealership",
 
     BAN_USER = "ban-user",
-    
-    VIEW_STATISTICS = "view-statistics",
+    CREATE_USER = "create-user",
+
+    MANAGE_CAR_DEALERSHIP_WORKER = "manage-car-dealership-worker",
+
     ALL_ALLOWED = "*"
 }

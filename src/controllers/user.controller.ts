@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from "express";
 import {userService} from "../services/user.service";
 import {StatusCodes} from "../enums/status-codes";
-import {UpdateAccountTypeDto, UserUpdateDto} from "../dtos/user.dto";
+import {UpdateAccountTypeDto, UserCreateDto, UserUpdateDto} from "../dtos/user.dto";
 import {ITokenPayload} from "../interfaces/token.interface";
 
 class UserController {
@@ -18,6 +18,16 @@ class UserController {
         try {
             const { id } = req.params;
             const data = await userService.getById(id as string);
+            res.status(StatusCodes.OK).json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    public async CreateUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            const user = req.body as UserCreateDto;
+            const data = await userService.create(user);
             res.status(StatusCodes.OK).json(data);
         } catch (error) {
             next(error);

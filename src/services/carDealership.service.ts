@@ -1,6 +1,9 @@
 import {ICarDealership} from "../interfaces/carDealership";
 import {carDealershipRepository} from "../repositories/carDealerShip.repository";
-import {CarDealershipDto} from "../dtos/carDealership.dto";
+import {CarDealershipDto, CreateDealershipResponse} from "../dtos/carDealership.dto";
+import {roleRepository} from "../repositories/role.repository";
+import {RoleName} from "../enums/role.enum";
+import {dealershipWorkerRepository} from "../repositories/dealershipWorker.repository";
 
 class CarDealershipService {
     public getAll(): Promise<ICarDealership[]> {
@@ -11,8 +14,20 @@ class CarDealershipService {
         return carDealershipRepository.getById(carDealershipId);
     }
 
-    public create(carDealership: CarDealershipDto): Promise<ICarDealership> {
-        return carDealershipRepository.create(carDealership);
+    public async create(carDealership: CarDealershipDto): Promise<CreateDealershipResponse> {
+        const newCarDealership = await carDealershipRepository.create(carDealership);
+
+        const ownerRole = await roleRepository.getByRoleName(RoleName.CAR_DEALERSHIP_OWNER);
+        const owner = await dealershipWorkerRepository.create({
+            userId: carDealership.creatorId,
+            carDealershipId: newCarDealership._id,
+            roleId: ownerRole._id,
+        });
+
+        return {
+            carDealership: newCarDealership,
+            owner
+        }
     }
 
     public updateById(carDealershipId: string, carDealership: CarDealershipDto): Promise<ICarDealership> {

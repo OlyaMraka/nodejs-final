@@ -6,4 +6,5 @@ export interface ICarDealership extends IBase {
     address: string;
     phone: string;
     email: string;
+    creatorId: string;
 }

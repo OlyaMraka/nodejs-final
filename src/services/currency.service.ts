@@ -1,8 +1,16 @@
 import {Currency} from "../enums/currency.enum";
-import {currencyRateRepository} from "../repositories/currency.repository";
 import {IPriceInfo} from "../interfaces/carAd.interface";
+import {currencyRateRepository} from "../repositories/currency.repository";
+
+interface PrivatBankExchangeRate {
+    ccy: string;
+    base_ccy: string;
+    buy: string;
+    sale: string;
+}
 
 class CurrencyService {
+    private static readonly PRIVATBANK_API_URL = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5";
 
     public async convertToUAH(amount: number, currency: Currency): Promise<number> {
         if (currency === Currency.UAH) {
@@ -47,6 +55,40 @@ class CurrencyService {
                 EUR: Number((amountUAH / rates[Currency.EUR]).toFixed(2)),
             },
         };
+    }
+
+    private async fetchPrivatBankRates(): Promise<PrivatBankExchangeRate[]> {
+        const response = await fetch(CurrencyService.PRIVATBANK_API_URL);
+
+        if (!response.ok) {
+            throw new Error(`PrivatBank API responded with status ${response.status}`);
+        }
+
+        return response.json() as Promise<PrivatBankExchangeRate[]>;
+    }
+
+    public async syncRatesFromPrivatBank(): Promise<void> {
+        try {
+            const rates = await this.fetchPrivatBankRates();
+
+            const rateMap = rates.filter(
+                (rate: PrivatBankExchangeRate) => rate.base_ccy === "UAH" && ["USD", "EUR"].includes(rate.ccy)
+            );
+
+            for (const rate of rateMap) {
+                const currency = rate.ccy === "USD" ? Currency.USD : Currency.EUR;
+                const rateToUAH = Number(rate.sale) || Number(rate.buy);
+
+                if (!rateToUAH || Number.isNaN(rateToUAH)) {
+                    continue;
+                }
+
+                await currencyRateRepository.upsertByCurrency(currency, rateToUAH);
+            }
+
+        } catch (error) {
+            console.error("Failed to update currency rates from PrivatBank:", error);
+        }
     }
 }
 

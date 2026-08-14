@@ -2,9 +2,10 @@ import {Router} from "express";
 import {carDealershipController} from "../controllers/carDealership.controller";
 import {commonMiddleware} from "../middleware/common.middleware";
 import {authMiddleware} from "../middleware/auth.middleware";
+import {CarDealershipValidator} from "../validators/carDealership.validator";
+import {carDealershipMiddleware} from "../middleware/carDealership.middleware";
 import {permissionMiddleware} from "../middleware/permissions.middleware";
 import {PermissionType} from "../enums/permission-types";
-import {CarDealershipValidator} from "../validators/carDealership.validator";
 
 const router = Router();
 
@@ -35,7 +36,7 @@ router.put(
     commonMiddleware.isIdValid("id"),
     commonMiddleware.validateBody(CarDealershipValidator.update),
     authMiddleware.checkAccessToken(),
-    permissionMiddleware.checkPermission(PermissionType.EDIT_CAR_DEALERSHIP),
+    carDealershipMiddleware.CheckIfUserIsOwner(),
     carDealershipController.UpdateCarDealership
 );
 
@@ -43,7 +44,7 @@ router.delete(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
-    permissionMiddleware.checkPermission(PermissionType.DELETE_CAR_DEALERSHIP),
+    carDealershipMiddleware.CheckIfUserIsOwner(),
     carDealershipController.DeleteCarDealershipById
 );
 

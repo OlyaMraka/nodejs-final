@@ -7,9 +7,9 @@ import {roleSeeder} from "./seeders/role.seeder";
 import {userSeeder} from "./seeders/user.seeder";
 import {carBrandSeeder} from "./seeders/carBrand.seeder";
 import {carModelSeeder} from "./seeders/carModel.seeder";
-import {carDealershipSeeder} from "./seeders/carDealership.seeder";
 import {carAdSeeder} from "./seeders/carAd.seeder";
 import {currencyRateSeeder} from "./seeders/currencyRate.seeder";
+import {cronsRunner} from "./crons";
 
 const app = express();
 app.use(express.json());
@@ -33,7 +33,6 @@ const dbConnection = async () => {
         await userSeeder.seed();
         await carBrandSeeder.seed();
         await carModelSeeder.seed();
-        await carDealershipSeeder.seed();
         await carAdSeeder.seed();
     } catch (e) {
         console.error(e);
@@ -43,8 +42,9 @@ const dbConnection = async () => {
 const startServer = async () => {
     try {
         await dbConnection();
-        app.listen(config.PORT, () => {
+        app.listen(config.PORT, async () => {
             console.log(`Server started on ${config.PORT}`);
+            await cronsRunner();
         })
     } catch (e) {
         console.error(e);

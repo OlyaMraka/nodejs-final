@@ -5,6 +5,7 @@ import {authRouter} from "./auth.router";
 import {carBrandRouter} from "./carBrand.router";
 import {carModelRouter} from "./carModel.router";
 import {carDealershipRouter} from "./carDealership.router";
+import {dealershipWorkerRouter} from "./dealershipWorker.router";
 import {carAdRouter} from "./carAd.router";
 import {communicationRouter} from "./communication.router";
 
@@ -16,6 +17,7 @@ router.use("/auth", authRouter);
 router.use("/carBrands", carBrandRouter);
 router.use("/carModels", carModelRouter);
 router.use("/carDealerships", carDealershipRouter);
+router.use("/dealershipWorkers", dealershipWorkerRouter);
 router.use("/carAds", carAdRouter);
 router.use("/communications", communicationRouter);
 

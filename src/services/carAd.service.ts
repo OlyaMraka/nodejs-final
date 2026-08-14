@@ -200,6 +200,10 @@ class CarAdService {
 
         const ad = await this.getById(carAdId);
 
+        if (userId != ad.userId) {
+            throw new ApiError(StatusCodes.FORBIDDEN, "You do not have access to other users' ad statistics.");
+        }
+
         const carBrandId = ad.carBrandId.toString();
         const carModelId = ad.carModelId.toString();
 

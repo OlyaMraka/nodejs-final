@@ -12,6 +12,7 @@ class RoleSeeder {
                     PermissionType.CREATE_AD,
                     PermissionType.UPDATE_AD,
                     PermissionType.DELETE_AD,
+                    PermissionType.CREATE_CAR_DEALERSHIP,
                 ],
             },
             { upsert: true }
@@ -37,6 +38,17 @@ class RoleSeeder {
                 name: RoleName.ADMIN,
                 permissions: [
                     PermissionType.ALL_ALLOWED,
+                ],
+            },
+            { upsert: true }
+        );
+
+        await Role.updateOne(
+            { name: RoleName.CAR_DEALERSHIP_OWNER },
+            {
+                name: RoleName.CAR_DEALERSHIP_OWNER,
+                permissions: [
+                    PermissionType.MANAGE_CAR_DEALERSHIP_WORKER,
                 ],
             },
             { upsert: true }

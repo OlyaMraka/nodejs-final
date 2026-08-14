@@ -2,6 +2,7 @@ import {Request, Response, NextFunction} from "express";
 import {carDealershipService} from "../services/carDealership.service";
 import {StatusCodes} from "../enums/status-codes";
 import {CarDealershipDto} from "../dtos/carDealership.dto";
+import {ITokenPayload} from "../interfaces/token.interface";
 
 class CarDealershipController {
     public async GetAllCarDealerships(req: Request, res: Response, next: NextFunction) {
@@ -25,7 +26,12 @@ class CarDealershipController {
 
     public async CreateCarDealership(req: Request, res: Response, next: NextFunction) {
         try {
+            const tokenPayload = res.locals.tokenPayload as ITokenPayload;
+            const { userId } = tokenPayload;
+
             const carDealership = req.body as CarDealershipDto;
+            carDealership.creatorId = userId;
+
             const data = await carDealershipService.create(carDealership);
             res.status(StatusCodes.CREATED).json(data);
         } catch (error) {

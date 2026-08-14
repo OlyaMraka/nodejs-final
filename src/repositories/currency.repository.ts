@@ -12,6 +12,14 @@ class CurrencyRateRepository {
         return CurrencyRate.findOne({ currency });
     }
 
+    public upsertByCurrency(currency: Currency, rateToUAH: number): Promise<ICurrencyRate> {
+        return CurrencyRate.findOneAndUpdate(
+            { currency },
+            { currency, rateToUAH },
+            { upsert: true, returnDocument: "after" }
+        );
+    }
+
     public async getRatesMap(): Promise<Record<Currency, number>> {
         const rates = await CurrencyRate.find();
 

@@ -18,6 +18,7 @@ export const ServiceConstants = {
     BASIC_ACCOUNT_ALLOWS_ONE_AD: "A basic account allows you to publish one ad!",
     STATISTICS_AVAILABLE_FOR_PREMIUM: "Statistics are available only for premium accounts!",
     USER_ALREADY_EXISTS: "User already exists!",
+    DEALERSHIP_NOT_FOUND: "Car dealership not found!",
 }
 
 export const EmailTopicsConstants = {

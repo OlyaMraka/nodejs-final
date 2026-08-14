@@ -5,6 +5,7 @@ import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
 import {AccountTypes} from "../enums/account-types";
 import {ServiceConstants} from "../constants/error.constants";
+import {passwordService} from "./password.service";
 
 class UserService {
     public async getAll(): Promise<IUser[]> {
@@ -12,7 +13,12 @@ class UserService {
     }
 
     public async create(user: UserCreateDto): Promise<IUser> {
-        return await userRepository.create(user);
+        await this.isEmailUnique(user.email);
+
+        const password = await passwordService.hashPassword(user.password);
+        const newUser = await userRepository.create({...user, password});
+
+        return await userRepository.create(newUser);
     }
 
     public async getById(userId: string): Promise<IUser> {
