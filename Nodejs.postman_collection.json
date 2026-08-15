@@ -1,0 +1,1654 @@
+{
+  "info": {
+    "_postman_id": "1ab1d688-9507-4d92-a7c3-ecb03bf2ef31",
+    "name": "Nodejs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45002157",
+    "_collection_link": "https://go.postman.co/collection/45002157-1ab1d688-9507-4d92-a7c3-ecb03bf2ef31?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "UserRequests",
+      "item": [
+        {
+          "name": "getAll",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/users",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteUser",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/users/6a7f3ba0005b50cc17bada66",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "users",
+                "6a7f3ba0005b50cc17bada66"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateUser",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Oleg\",\r\n    \"surname\" : \"Ivanov\",\r\n    \"age\" : 25,\r\n    \"email\" : \"olegivanov@gmail.com\",\r\n    \"phone\" : \"+380987062624\",\r\n    \"accountType\" : \"basic\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/users/{{testUserId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "users",
+                "{{testUserId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/users/{{testUserId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "users",
+                "{{testUserId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateAccountType",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"accountType\" : \"premium\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/users/updateAccountType",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "users",
+                "updateAccountType"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createUser",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const test_user = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"testUserId\", test_user._id);\r",
+                  "console.log(\"Saved testUserId:\", test_user._id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Olena\",\r\n    \"surname\" : \"Mraka\",\r\n    \"age\" : 12,\r\n    \"email\" : \"olgamrako@gmail.com\",\r\n    \"password\" : \"OlgaPassword!1\",\r\n    \"phone\" : \"+380987062624\",\r\n    \"roleId\": \"6a7f166a340478bfb462fca0\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/users",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "banUser",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/users/{{testUserId}}/ban",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "users",
+                "{{testUserId}}",
+                "ban"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "RoleRequests",
+      "item": [
+        {
+          "name": "createRole",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// For easier testing, the ID of the newly created role is automatically saved.\r",
+                  "// This allows the same role to be updated, retrieved by ID, and deleted in subsequent requests.\r",
+                  "\r",
+                  "const role = pm.response.json();\r",
+                  "pm.collectionVariables.set(\"roleId\", role._id);\r",
+                  "console.log(\"Saved roleId:\", role._id);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"car_dealership_owner\",\r\n  \"permissions\": [\r\n    \"manage-car-dealership-worker\"\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/roles",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "roles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAll",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "localhost:{{port}}/roles",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "roles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateRole",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"manager-y\",\r\n  \"permissions\": [\r\n    \"ban-user\"\r\n  ]\r\n}"
+            },
+            "url": {
+              "raw": "localhost:{{port}}/roles/{{roleId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "roles",
+                "{{roleId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteRole",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "localhost:{{port}}/roles/{{roleId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "roles",
+                "{{roleId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"manager-x\",\r\n  \"permissions\": [\r\n    \"ban-user\"\r\n  ]\r\n}"
+            },
+            "url": {
+              "raw": "localhost:{{port}}/roles/{{roleId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "roles",
+                "{{roleId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "AuthRequests",
+      "item": [
+        {
+          "name": "signUp",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.environment.set(\"accessToken\", response.token.access_token);\r",
+                  "pm.environment.set(\"refreshToken\", response.token.refresh_token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Olenaнннн\",\r\n    \"surname\" : \"Mraka\",\r\n    \"age\" : 12,\r\n    \"email\" : \"olgamrakaaaa@gmail.com\",\r\n    \"password\" : \"OlgaPassword!1\",\r\n    \"phone\" : \"+380987062624\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/auth/sign-up",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "auth",
+                "sign-up"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "signIn",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const data = pm.response.json();\r",
+                  "\r",
+                  "pm.environment.set(\"accessToken\", data.token.access_token);\r",
+                  "pm.environment.set(\"refreshToken\", data.token.refresh_token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "packages": {},
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "// {\r\n//   \"email\": \"admin2@gmail.com\",\r\n//   \"password\": \"Password123!\"\r\n// }\r\n\r\n// {\r\n//   \"email\": \"manager1@gmail.com\",\r\n//   \"password\": \"Password123!\"\r\n// }\r\n\r\n{\r\n  \"email\": \"seller2@gmail.com\",\r\n  \"password\": \"Password123!\"\r\n}\r\n\r\n// {\r\n//   \"email\": \"premium2@gmail.com\",\r\n//   \"password\": \"Password123!\"\r\n// }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/auth/sign-in",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "auth",
+                "sign-in"
+              ]
+            },
+            "description": "## Sign In Endpoint\n\nThis endpoint allows users to authenticate by signing in with their email and password. Upon successful authentication, the server responds with user details and an access token.\n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `localhost:{{port}}/auth/sign-in`\n    \n- **Request Body** (JSON):\n    \n    - `email` (string): The email address of the user attempting to sign in.\n        \n    - `password` (string): The password associated with the user's account.\n        \n\n### Example Request Body\n\n``` json\n{\n  \"email\": \"seller2@gmail.com\",\n  \"password\": \"Password123!\"\n}\n\n ```\n\n### Response\n\n- **Status**: 200 OK\n    \n- **Content-Type**: application/json\n    \n- **Response Body** (JSON):\n    \n    - `user`: An object containing user details.\n        \n        - `banned` (boolean): Indicates if the user is banned.\n            \n        - `_id` (string): The unique identifier for the user.\n            \n        - `name` (string): The user's name.\n            \n        - `surname` (string): The user's surname.\n            \n        - `age` (integer): The user's age.\n            \n        - `email` (string): The user's email.\n            \n        - `phone` (string): The user's phone number.\n            \n        - `password` (string): The user's password (not typically returned).\n            \n        - `roleId` (string): The role identifier for the user.\n            \n        - `accountType` (string): The type of account the user has.\n            \n        - `deleted` (boolean): Indicates if the user account is deleted.\n            \n        - `isVerified` (boolean): Indicates if the user's email is verified.\n            \n        - `createdAt` (string): Timestamp of when the user was created.\n            \n        - `updatedAt` (string): Timestamp of the last update to the user.\n            \n    - `token`: An object containing authentication tokens.\n        \n        - `access_token` (string): The token used for accessing protected resources.\n            \n        - `refresh_token` (string): The token used to obtain a new access token.\n            \n\n### Request\n\n- **Method**: POST\n    \n- **URL**: `localhost:{{port}}/auth/sign-in`\n    \n- **Headers**:\n    \n    - `Content-Type: application/json`\n        \n\n#### Request Body\n\nThe request body must be in JSON format and include the following parameters:\n\n- `email` (string): The email address of the user attempting to sign in.\n    \n- `password` (string): The password associated with the user's account.\n    \n\n**Example Request Body**:\n\n``` json\n{\n  \"email\": \"seller2@gmail.com\",\n  \"password\": \"Password123!\"\n}\n\n ```\n\n### Response\n\nUpon a successful sign-in, the server will return a response with a status code of `200` and the following JSON structure:\n\n- `user` (object): Contains information about the authenticated user.\n    \n    - `banned` (boolean): Indicates if the user is banned.\n        \n    - `_id` (string): The unique identifier for the user.\n        \n    - `name` (string): The user's first name.\n        \n    - `surname` (string): The user's surname.\n        \n    - `age` (integer): The user's age.\n        \n    - `email` (string): The user's email address.\n        \n    - `phone` (string): The user's phone number.\n        \n    - `password` (string): The user's password.\n        \n    - `roleId` (string): The role identifier associated with the user.\n        \n    - `accountType` (string): The type of account the user has.\n        \n    - `deleted` (boolean): Indicates if the user's account is deleted.\n        \n    - `isVerified` (boolean): Indicates if the user's email is verified.\n        \n    - `createdAt` (string): The timestamp when the user was created.\n        \n    - `updatedAt` (string): The timestamp when the user was last updated.\n        \n- `token` (object): Contains the authentication tokens.\n    \n    - `access_token` (string): The token used for accessing protected resources.\n        \n    - `refresh_token` (string): The token used to obtain a new access token.\n        \n\n**Example Response**:\n\n``` json\n{\n  \"user\": {\n    \"banned\": true,\n    \"_id\": \"\",\n    \"name\": \"\",\n    \"surname\": \"\",\n    \"age\": 0,\n    \"email\": \"\",\n    \"phone\": \"\",\n    \"password\": \"\",\n    \"roleId\": \"\",\n    \"accountType\": \"\",\n    \"deleted\": true,\n    \"isVerified\": true,\n    \"createdAt\": \"\",\n    \"updatedAt\": \"\"\n  },\n  \"token\": {\n    \"access_token\": \"\",\n    \"refresh_token\": \"\"\n  }\n}\n\n ```"
+          },
+          "response": []
+        },
+        {
+          "name": "me",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Olya\",\r\n    \"surname\" : \"Mraka\",\r\n    \"age\" : 12,\r\n    \"email\" : \"mrakaolga@gmail.com\",\r\n    \"phone\" : \"+380987062624\",\r\n    \"accountType\" : \"basic\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:{{port}}/auth/me",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "refreshToken",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.environment.set(\"accessToken\", response.access_token);\r",
+                  "pm.environment.set(\"refreshToken\", response.refresh_token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"refresh_token\" : \"{{refreshToken}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/auth/refresh",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CarBrandRequests",
+      "item": [
+        {
+          "name": "createCarBrand",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// For easier testing, the ID of the created car brand is stored.\r",
+                  "// The flow is: create the brand, get it by ID, update it, and finally delete it.\r",
+                  "// Saved id is also used in CarModel and CarAd operations, so before delete test them!\r",
+                  "\r",
+                  "if (pm.response.code === 201) {\r",
+                  "    const carBrand = pm.response.json();\r",
+                  "    pm.collectionVariables.set(\"carBrandId\", carBrand._id);\r",
+                  "    console.log(\"Saved carBrandId:\", carBrand._id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Car-X\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/carBrands",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carBrands"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAll",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carBrands",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carBrands"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carBrands/{{carBrandId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carBrands",
+                "{{carBrandId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateCarBrand",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Car-Y\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/carBrands/{{carBrandId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carBrands",
+                "{{carBrandId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteCarBrand",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carBrands/{{carBrandId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carBrands",
+                "{{carBrandId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CarModelRequests",
+      "item": [
+        {
+          "name": "createCarModel",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// For easier testing, the ID of the created car model is stored.\r",
+                  "// The flow is: create the model, get it by ID, update it, and finally delete it.\r",
+                  "// Requests for car models use previously saved car brand id, make sure it is in the store!\r",
+                  "\r",
+                  "if (pm.response.code === 201) {\r",
+                  "    const carModel = pm.response.json();\r",
+                  "    pm.collectionVariables.set(\"carModelId\", carModel._id);\r",
+                  "    console.log(\"Saved carModelId:\", carModel._id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Model-X\",\r\n    \"carBrandId\": \"{{carBrandId}}\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/carModels",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carModels"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAll",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carModels",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carModels"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carModels/{{carModelId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carModels",
+                "{{carModelId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getByCarBrandId",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carModels/carBrandModels/{{carBrandId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carModels",
+                "carBrandModels",
+                "{{carBrandId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateCarModel",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Model-Y\",\r\n    \"carBrandId\": \"{{carBrandId}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/carModels/{{carModelId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carModels",
+                "{{carModelId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteCarModel",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carModels/{{carModelId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carModels",
+                "{{carModelId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CarAdRequests",
+      "item": [
+        {
+          "name": "createCarAd",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// For easier testing, the ID of the created car ad is stored.\r",
+                  "// The flow is: create the ad, get it by ID, update it, and finally delete it.\r",
+                  "// Requests for car models use previously saved car brand id and car model id, make sure it is in the store!\r",
+                  "\r",
+                  "if (pm.response.code === 201) {\r",
+                  "    const carAd = pm.response.json();\r",
+                  "    pm.collectionVariables.set(\"carAdId\", carAd._id);\r",
+                  "    console.log(\"Saved carAdId:\", carAd._id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "// Invalid body! Car ad will be created with NEED_EDIT status!\r\n{\r\n        \"carBrandId\" : \"6a7f3ba0005b50cc17bada75\",\r\n    \"carModelId\" : \"6a7f3ba0005b50cc17badaa7\",\r\n    // \"carBrandId\" : \"{{carBrandId}}\",\r\n    // \"carModelId\" : \"{{carModelId}}\",\r\n    \"year\" : 2023,\r\n    \"currency\" : \"USD\",\r\n    \"description\" : \"Продаю автомобіль. Машина в нормальному стані, але попередній власник був якийсь мудак. Коли дивився авто, подумав: блять, який піздець. Потім приїхав ще один покупець і почав нести якусь хуйню. Сказав: єбать, яка ціна, а потім додав: нахуй так дорого?.Я відповів, що не треба поводитись як довбойоб.\",\r\n    \"country\" : \"Ukraine\",\r\n    \"region\" : \"Lviv\",\r\n    \"price\" : 70000\r\n}\r\n\r\n// Valid body! Car ad will be created successfully with Active status!\r\n// {\r\n//     \"carBrandId\" : \"{{carBrandId}}\",\r\n//     \"carModelId\" : \"{{carModelId}}\",\r\n//     \"year\" : 2023,\r\n//     \"currency\" : \"USD\",\r\n//     \"description\" : \"Класне авто! Їздила жінка по місту, не побите, не мальоване, не втоплене! Чудова ластівка!\",\r\n//     \"country\" : \"Ukraine\",\r\n//     \"region\" : \"Lviv\",\r\n//     \"price\" : 70000\r\n// }\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/carAds",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carAds"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateCarAd",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "//Invalid body!\r\n// {\r\n//     \"carBrandId\" : \"{{carBrandId}}\",\r\n//     \"carModelId\" : \"{{carModelId}}\",\r\n//     \"year\" : 2023,\r\n//     \"currency\" : \"USD\",\r\n//     \"description\" : \"Продаю автомобіль. Машина в нормальному стані, але попередній власник був якийсь мудак. Коли дивився авто, подумав: блять, який піздець.\",\r\n//     \"country\" : \"Ukraine\",\r\n//     \"region\" : \"Lviv\",\r\n//     \"price\" : 100000\r\n// }\r\n\r\n// Valid body! Car ad will be created successfully with Active status!\r\n// {\r\n//     \"carBrandId\" : \"{{carBrandId}}\",\r\n//     \"carModelId\" : \"{{carModelId}}\",\r\n//     \"year\" : 2023,\r\n//     \"currency\" : \"USD\",\r\n//     \"description\" : \"Класне авто! Їздила жінка по місту, не побите, не мальоване, не втоплене! Чудова ластівка! Оновила інфу!\",\r\n//     \"country\" : \"Ukraine\",\r\n//     \"region\" : \"Lviv\",\r\n//     \"price\" : 70001\r\n// }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/carAds/{{carAdId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carAds",
+                "{{carAdId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteCarAd",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carAds/{{carAdId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carAds",
+                "{{carAdId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carAds/{{carAdId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carAds",
+                "{{carAdId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getUserAds",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carAds/userAds/{{testUserId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carAds",
+                "userAds",
+                "{{testUserId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAll",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carAds",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carAds"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "statistics",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"carBrandId\" : \"6a7b4b330237df08ed986edf\",\r\n    \"carModelId\" : \"6a7ba6f979f8e392ffaeda86\",\r\n    \"year\" : 2023,\r\n    \"currency\" : \"USD\",\r\n    \"description\" : \"Продаю автомобіль. Машина в нормальному стані, але попередній власник був якийсь мудак. Коли дивився авто, подумав: блять, який піздець. Потім приїхав ще один покупець і почав нести якусь хуйню. Сказав: єбать, яка ціна, а потім додав: нахуй так дорого?.Я відповів, що не треба поводитись як довбойоб.\",\r\n    \"country\" : \"Ukraine\",\r\n    \"region\" : \"Lviv\",\r\n    \"price\" : 100000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/carAds/{{carAdId}}/statistics",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carAds",
+                "{{carAdId}}",
+                "statistics"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getMyAds",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/carAds/myAds",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carAds",
+                "myAds"
+              ]
+            },
+            "description": "# Get My Car Ads\n\nThis endpoint retrieves a list of car advertisements associated with the authenticated user.\n\n## Endpoint\n\n```\nGET /carAds/myAds\n\n ```\n\n## Method\n\n`GET`\n\n## Expected Input Parameters\n\nThis endpoint does not require any input parameters in the request.\n\n## Response Format\n\nThe response will be in JSON format and will include the following fields:\n\n- `ads`: An array of car advertisement objects, each containing details about the ad.\n    \n    - `id`: Unique identifier for the advertisement.\n        \n    - `title`: Title of the car advertisement.\n        \n    - `description`: Description of the car being advertised.\n        \n    - `price`: Price of the car.\n        \n    - `createdAt`: Timestamp of when the ad was created.\n        \n    - `updatedAt`: Timestamp of when the ad was last updated.\n        \n\n### Example Response\n\n``` json\n{\n  \"ads\": [\n    {\n      \"id\": \"1\",\n      \"title\": \"2018 Toyota Camry\",\n      \"description\": \"A well-maintained sedan with low mileage.\",\n      \"price\": 20000,\n      \"createdAt\": \"2023-01-01T12:00:00Z\",\n      \"updatedAt\": \"2023-01-10T12:00:00Z\"\n    },\n    {\n      \"id\": \"2\",\n      \"title\": \"2019 Honda Accord\",\n      \"description\": \"A reliable car with excellent fuel efficiency.\",\n      \"price\": 22000,\n      \"createdAt\": \"2023-02-01T12:00:00Z\",\n      \"updatedAt\": \"2023-02-10T12:00:00Z\"\n    }\n  ]\n}\n\n ```\n\n## Notes\n\n- Ensure that the user is authenticated to access their ads.\n    \n- The response will return an empty array if no ads are found for the user.\n    \n\nThis endpoint retrieves a list of car advertisements that belong to the authenticated user. It allows users to view their own ads, including details such as the car's make, model, price, and other relevant information.\n\n### Request\n\n- **Method:** GET\n    \n- **URL:** `localhost:{{port}}/carAds/myAds`\n    \n\n### Response\n\nThe response will be in JSON format and will include an array of car ads. Each car ad object may contain the following fields:\n\n- `id`: (string) Unique identifier for the car ad.\n    \n- `make`: (string) The manufacturer of the car.\n    \n- `model`: (string) The model of the car.\n    \n- `year`: (integer) The year the car was manufactured.\n    \n- `price`: (number) The price of the car.\n    \n- `description`: (string) A detailed description of the car.\n    \n- `imageUrl`: (string) URL to an image of the car.\n    \n\n### Example Response Structure\n\n``` json\n{\n  \"ads\": [\n    {\n      \"id\": \"12345\",\n      \"make\": \"Toyota\",\n      \"model\": \"Camry\",\n      \"year\": 2020,\n      \"price\": 20000,\n      \"description\": \"A reliable sedan with great fuel efficiency.\",\n      \"imageUrl\": \"http://example.com/images/car1.jpg\"\n    },\n    {\n      \"id\": \"67890\",\n      \"make\": \"Honda\",\n      \"model\": \"Civic\",\n      \"year\": 2019,\n      \"price\": 18000,\n      \"description\": \"Sporty compact car with advanced safety features.\",\n      \"imageUrl\": \"http://example.com/images/car2.jpg\"\n    }\n  ]\n}\n\n ```\n\n### Notes\n\n- Ensure that the user is authenticated to access this endpoint.\n    \n- The response will only include ads that are created by the authenticated user."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CommunicationRequests",
+      "item": [
+        {
+          "name": "sendCarBrandRequestFax",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"carBrand\": \"Ferari\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/communications/sendCarBrandRequestFax",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "communications",
+                "sendCarBrandRequestFax"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "sendCarModelRequestFax",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"carModelName\": \"bbb\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:{{port}}/communications/sendCarModelRequestFax/{{carBrandId}}",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "communications",
+                "sendCarModelRequestFax",
+                "{{carBrandId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CarDealershipRequests",
+      "item": [
+        {
+          "name": "createCarDealership",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// For easier testing, the ID of the created car model is stored.\r",
+                  "// The flow is: create the car dealership, get it by ID, update it, and finally delete it.\r",
+                  "\r",
+                  "\r",
+                  "if (pm.response.code === 201) {\r",
+                  "    const CarDealership = pm.response.json();\r",
+                  "    pm.collectionVariables.set(\"carDealershipId\", CarDealership.carDealership._id);\r",
+                  "    console.log(\"Saved carDealershipId:\", CarDealership.carDealership._id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"AutoPrime\",\r\n  \"address\": \"вул. Шевченка 12, Київ\",\r\n  \"email\": \"sales@autoprime.ua\",\r\n  \"phone\": \"+380501234567\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/carDealerships",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carDealerships"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAll",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/carDealerships",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carDealerships"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/carDealerships/{{carDealershipId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carDealerships",
+                "{{carDealershipId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateCarDealership",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"AutoPrime UPDATED\",\r\n  \"address\": \"вул. Шевченка 12, Київ UPDATED\",\r\n  \"email\": \"sales@autoprime.ua\",\r\n  \"phone\": \"+380501234567\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:{{port}}/carDealerships/{{carDealershipId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carDealerships",
+                "{{carDealershipId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteCarDealership",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:{{port}}/carDealerships/{{carDealershipId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "carDealerships",
+                "{{carDealershipId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "dealershipWorkers",
+      "item": [
+        {
+          "name": "getAll",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:{{port}}/dealershipWorkers",
+              "host": [
+                "localhost"
+              ],
+              "port": "{{port}}",
+              "path": [
+                "dealershipWorkers"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "roleId",
+      "value": ""
+    },
+    {
+      "key": "carBrandId",
+      "value": ""
+    },
+    {
+      "key": "carModelId",
+      "value": ""
+    },
+    {
+      "key": "carAdId",
+      "value": ""
+    },
+    {
+      "key": "carDealershipId",
+      "value": ""
+    },
+    {
+      "key": "testUserId",
+      "value": ""
+    }
+  ]
+}
