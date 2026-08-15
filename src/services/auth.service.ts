@@ -35,6 +35,11 @@ class AuthService {
 
     public async signIn(credentials: SignInDto): Promise<{user: IUser, token: TokenPair}>{
         const user = await userRepository.getByEmail(credentials.email);
+
+        if(user.banned){
+            throw new ApiError(StatusCodes.FORBIDDEN, ServiceConstants.SIGN_IN_ERROR_USER_BANNED);
+        }
+
         const isPasswordValid = await passwordService.comparePassword(credentials.password, user.password);
 
         if(!isPasswordValid) {

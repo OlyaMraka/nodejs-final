@@ -4,7 +4,10 @@ export const MiddlewareConstants = {
     NO_ACCESS_TOKEN: "No access token provided",
     NO_ACCESS_TOKEN_FOUND: "No access token found",
     NO_REFRESH_TOKEN: "No refresh token provided",
-    NO_REFRESH_TOKEN_FOUND: "No refresh token found"
+    NO_REFRESH_TOKEN_FOUND: "No refresh token found",
+    USER_NOT_IN_DEALERSHIP: "User is not assigned to this dealership!",
+    OWNER_NOT_FOUND: "Owner role not found!",
+    NOT_AN_OWNER: "User is not an owner of this dealership!",
 }
 
 export const ServiceConstants = {
@@ -19,6 +22,8 @@ export const ServiceConstants = {
     STATISTICS_AVAILABLE_FOR_PREMIUM: "Statistics are available only for premium accounts!",
     USER_ALREADY_EXISTS: "User already exists!",
     DEALERSHIP_NOT_FOUND: "Car dealership not found!",
+    SIGN_IN_ERROR_USER_BANNED: "You cannot log in to your account because the manager has blocked it!",
+    NO_ACCESS_TO_OTHER_USERS_ADS: "You do not have access to other users' ad statistics!"
 }
 
 export const EmailTopicsConstants = {

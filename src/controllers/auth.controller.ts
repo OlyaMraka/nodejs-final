@@ -7,6 +7,8 @@ import {ITokenPayload} from "../interfaces/token.interface";
 import {userService} from "../services/user.service";
 import {tokenService} from "../services/token.service";
 import {tokenRepository} from "../repositories/token.repository";
+import {userRepository} from "../repositories/user.repository";
+import {ServiceConstants} from "../constants/error.constants";
 
 class AuthController {
     public async SignUp(req: Request, res: Response, next: NextFunction) {
@@ -43,6 +45,13 @@ class AuthController {
     public async Refresh(req: Request, res: Response, next: NextFunction) {
         try {
             const payload = res.locals.tokenPayload as ITokenPayload;
+
+            const user = await userRepository.getById(payload.userId);
+
+            if(user.banned) {
+                res.status(StatusCodes.FORBIDDEN).json(ServiceConstants.SIGN_IN_ERROR_USER_BANNED);
+            }
+
             const token = tokenService.generateTokens({roleId: payload.roleId, userId: payload.userId});
             await tokenRepository.create({...token, _userId: payload.userId});
 

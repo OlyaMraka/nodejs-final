@@ -38,6 +38,10 @@ class UserRepository {
         return User.findByIdAndUpdate(userId, user, { returnDocument: 'after' });
     }
 
+    public banUserById(userId: string): Promise<IUser> {
+        return User.findByIdAndUpdate(userId, { banned: true }, { returnDocument: 'after' });
+    }
+
     public getByEmail(email: string): Promise<IUser> {
         return User.findOne({ email });
     }

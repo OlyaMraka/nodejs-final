@@ -12,4 +12,5 @@ export interface IUser extends IBase {
     roleId: string;
     isVerified: boolean;
     accountType: AccountTypes;
+    banned: boolean;
 }

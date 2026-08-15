@@ -16,6 +16,7 @@ const userSchema = new Schema(
             default: AccountTypes.BASIC, required: true },
         deleted: { type: Boolean, default: false },
         isVerified: { type: Boolean, default: false },
+        banned: { type: Boolean, default: false },
     },
     {
         timestamps: true,

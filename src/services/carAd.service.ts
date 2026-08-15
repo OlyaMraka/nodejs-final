@@ -4,8 +4,6 @@ import {CreateCarAdDto, UpdateCarAdDto} from "../dtos/car.dto";
 import {userService} from "./user.service";
 import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
-import {carBrandService} from "./carBrand.service";
-import {carModelService} from "./carModel.service";
 import {AccountTypes} from "../enums/account-types";
 import {badWords} from "../constants/carAd.constants";
 import {AdStatus} from "../enums/adStatus";
@@ -16,6 +14,9 @@ import {currencyService} from "./currency.service";
 import {ICarAdStatistics} from "../interfaces/carAdStatistics.interface";
 import {carAdViewService} from "./carAdView.service";
 import {ServiceConstants} from "../constants/error.constants";
+import {carBrandRepository} from "../repositories/carBrand.repository";
+import {userRepository} from "../repositories/user.repository";
+import {carModelRepository} from "../repositories/carModel.repository";
 
 class CarAdService {
     public async getAll(): Promise<ICarAdResponse[]> {
@@ -107,12 +108,12 @@ class CarAdService {
     }
 
     private async checkCarAdReferences(carBrandId: string, carModelId: string): Promise<void> {
-        const carBrand = await carBrandService.getById(carBrandId);
+        const carBrand = await carBrandRepository.getById(carBrandId);
         if(!carBrand) {
             throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.INVALID_CAR_BRAND);
         }
 
-        const carModel = await carModelService.getById(carModelId);
+        const carModel = await carModelRepository.getById(carModelId);
         if(!carModel) {
             throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.INVALID_CAR_MODEL);
         }
@@ -201,7 +202,7 @@ class CarAdService {
         const ad = await this.getById(carAdId);
 
         if (userId != ad.userId) {
-            throw new ApiError(StatusCodes.FORBIDDEN, "You do not have access to other users' ad statistics.");
+            throw new ApiError(StatusCodes.FORBIDDEN, ServiceConstants.NO_ACCESS_TO_OTHER_USERS_ADS);
         }
 
         const carBrandId = ad.carBrandId.toString();
@@ -242,12 +243,12 @@ class CarAdService {
     }
 
     private async checkCarAdCreator(userId: string): Promise<void> {
-        const creator = await userService.getById(userId);
+        const creator = await userRepository.getById(userId);
         if(!creator) {
             throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.USER_NOT_FOUND);
         }
 
-        const userAds = await carAdService.getByUserId(userId);
+        const userAds = await carAdRepository.getByUserId(userId);
         if(creator.accountType === AccountTypes.BASIC && userAds.length > 0) {
             throw new ApiError(StatusCodes.FORBIDDEN, ServiceConstants.BASIC_ACCOUNT_ALLOWS_ONE_AD);
         }

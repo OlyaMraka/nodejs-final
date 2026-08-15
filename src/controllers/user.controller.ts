@@ -55,6 +55,16 @@ class UserController {
         }
     }
 
+    public async BanUserById(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+            const user = await userService.banUserById(id as string);
+            res.status(StatusCodes.OK).json(user);
+        } catch (error) {
+            next(error);
+        }
+    }
+
     public async UpdateAccountType(req: Request, res: Response, next: NextFunction) {
         try {
             const tokenPayload = res.locals.tokenPayload as ITokenPayload;

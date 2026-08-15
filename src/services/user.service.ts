@@ -43,6 +43,10 @@ class UserService {
         return await userRepository.updateById(userId, user);
     }
 
+    public async banUserById(userId: string): Promise<IUser> {
+        return await userRepository.banUserById(userId);
+    }
+
     public async updateAccountType(userId: string, accountType: AccountTypes): Promise<IUser> {
         return await userRepository.updateAccountType(userId, accountType);
     }

@@ -30,12 +30,22 @@ router.put(
 router.delete(
     '/:id',
     commonMiddleware.isIdValid("id"),
+    authMiddleware.checkAccessToken(),
+    permissionMiddleware.checkPermission(PermissionType.ALL_ALLOWED),
     userController.DeleteUserById);
 
 router.patch(
     '/updateAccountType',
     authMiddleware.checkAccessToken(),
     userController.UpdateAccountType
+)
+
+router.patch(
+    '/:id/ban',
+    commonMiddleware.isIdValid("id"),
+    authMiddleware.checkAccessToken(),
+    permissionMiddleware.checkPermission(PermissionType.BAN_USER),
+    userController.BanUserById
 )
 
 export const userRouter = router;

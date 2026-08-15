@@ -5,6 +5,7 @@ import {CarAdValidator} from "../validators/carAd.validator";
 import {authMiddleware} from "../middleware/auth.middleware";
 import {permissionMiddleware} from "../middleware/permissions.middleware";
 import {PermissionType} from "../enums/permission-types";
+import {carAdMiddleware} from "../middleware/carAd.middleware";
 
 const router = Router();
 
@@ -37,6 +38,7 @@ router.put(
     commonMiddleware.validateBody(CarAdValidator.update),
     authMiddleware.checkAccessToken(),
     permissionMiddleware.checkPermission(PermissionType.UPDATE_AD),
+    carAdMiddleware.checkOwnership(),
     carAdController.UpdateCarAd
 );
 
@@ -45,6 +47,7 @@ router.delete(
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
     permissionMiddleware.checkPermission(PermissionType.DELETE_AD),
+    carAdMiddleware.checkOwnership(true),
     carAdController.DeleteCarAd
 );
 

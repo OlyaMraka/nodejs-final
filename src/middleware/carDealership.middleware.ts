@@ -5,6 +5,7 @@ import {roleRepository} from "../repositories/role.repository";
 import {RoleName} from "../enums/role.enum";
 import {ApiError} from "../errors/api.error";
 import {StatusCodes} from "../enums/status-codes";
+import {MiddlewareConstants} from "../constants/error.constants";
 
 class CarDealershipMiddleware {
     public CheckIfUserIsOwner() {
@@ -18,17 +19,17 @@ class CarDealershipMiddleware {
                     .getByUserAndDealership(userId, dealershipId as string);
 
                 if (!dealershipWorker) {
-                    throw new ApiError(StatusCodes.FORBIDDEN, "User is not assigned to this dealership");
+                    throw new ApiError(StatusCodes.FORBIDDEN, MiddlewareConstants.USER_NOT_IN_DEALERSHIP);
                 }
 
                 const ownerRole = await roleRepository.getByRoleName(RoleName.CAR_DEALERSHIP_OWNER);
 
                 if (!ownerRole) {
-                    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Owner role not found");
+                    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, MiddlewareConstants.OWNER_NOT_FOUND);
                 }
 
                 if (dealershipWorker.roleId.toString() !== ownerRole._id.toString()) {
-                    throw new ApiError(StatusCodes.FORBIDDEN, "User is not an owner of this dealership");
+                    throw new ApiError(StatusCodes.FORBIDDEN, MiddlewareConstants.NOT_AN_OWNER);
                 }
 
                 next();

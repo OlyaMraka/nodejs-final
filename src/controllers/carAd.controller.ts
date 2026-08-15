@@ -89,6 +89,7 @@ class CarAdController {
             next(error);
         }
     }
+
 }
 
 export const carAdController = new CarAdController();
