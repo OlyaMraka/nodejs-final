@@ -21,10 +21,10 @@ class CommunicationService {
     }
 
     public async sendCarModelRequest(carBrand: string, carModel: string): Promise<void> {
-        // const manager = await userService.getManager();
+        const manager = await userService.getManager();
 
         await emailService.sendEmail(
-            "olgamraka@gmail.com",
+            manager.email,
             EmailTopicsConstants.NEW_CAR_MODEL_REQUEST,
             TemplateNames.CAR_MODEL_REQUEST,
             {
