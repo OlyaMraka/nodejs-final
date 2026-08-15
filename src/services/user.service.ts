@@ -6,6 +6,8 @@ import {StatusCodes} from "../enums/status-codes";
 import {AccountTypes} from "../enums/account-types";
 import {ServiceConstants} from "../constants/error.constants";
 import {passwordService} from "./password.service";
+import {roleRepository} from "../repositories/role.repository";
+import {RoleName} from "../enums/role.enum";
 
 class UserService {
     public async getAll(): Promise<IUser[]> {
@@ -16,9 +18,8 @@ class UserService {
         await this.isEmailUnique(user.email);
 
         const password = await passwordService.hashPassword(user.password);
-        const newUser = await userRepository.create({...user, password});
 
-        return await userRepository.create(newUser);
+        return await userRepository.create({...user, password});
     }
 
     public async getById(userId: string): Promise<IUser> {
@@ -44,6 +45,13 @@ class UserService {
     }
 
     public async banUserById(userId: string): Promise<IUser> {
+        const user = await userRepository.getById(userId);
+        const userRole = await roleRepository.getById(user.roleId);
+
+        if (userRole.name !== RoleName.SELLER) {
+            throw new ApiError(StatusCodes.BAD_REQUEST, ServiceConstants.ONLY_SELLER_BAN);
+        }
+
         return await userRepository.banUserById(userId);
     }
 

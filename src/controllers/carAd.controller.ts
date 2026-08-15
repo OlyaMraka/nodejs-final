@@ -38,6 +38,19 @@ class CarAdController {
         }
     }
 
+    public async GetMyCarAds(req: Request, res: Response, next: NextFunction) {
+        try {
+            const tokenPayload = res.locals.tokenPayload as ITokenPayload;
+            const { userId } = tokenPayload;
+
+            const data = await carAdService.getByUserId(userId);
+
+            res.status(StatusCodes.OK).json(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+
     public async CreateCarAd(req: Request, res: Response, next: NextFunction) {
         try {
             const tokenPayload = res.locals.tokenPayload as ITokenPayload;

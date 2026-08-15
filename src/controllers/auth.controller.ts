@@ -50,6 +50,7 @@ class AuthController {
 
             if(user.banned) {
                 res.status(StatusCodes.FORBIDDEN).json(ServiceConstants.SIGN_IN_ERROR_USER_BANNED);
+                return;
             }
 
             const token = tokenService.generateTokens({roleId: payload.roleId, userId: payload.userId});

@@ -27,6 +27,12 @@ router.post(
 );
 
 router.get(
+    '/myAds',
+    authMiddleware.checkAccessToken(),
+    carAdController.GetMyCarAds
+);
+
+router.get(
     '/:id',
     commonMiddleware.isIdValid("id"),
     carAdController.GetCarAdById

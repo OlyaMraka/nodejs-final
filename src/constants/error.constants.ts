@@ -23,9 +23,7 @@ export const ServiceConstants = {
     USER_ALREADY_EXISTS: "User already exists!",
     DEALERSHIP_NOT_FOUND: "Car dealership not found!",
     SIGN_IN_ERROR_USER_BANNED: "You cannot log in to your account because the manager has blocked it!",
-    NO_ACCESS_TO_OTHER_USERS_ADS: "You do not have access to other users' ad statistics!"
-}
-
-export const EmailTopicsConstants = {
-    NEW_CAR_BRAND_REQUEST: "New car brand request",
+    NO_ACCESS_TO_OTHER_USERS_ADS: "You do not have access to other users' ad statistics!",
+    ONLY_SELLER_BAN: "You cannot ban a manager or an administrator, only a seller for inappropriate behavior!",
+    CAR_BRAND_NOT_FOUND: "Car brand not found!"
 }

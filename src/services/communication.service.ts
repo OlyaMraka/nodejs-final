@@ -1,7 +1,7 @@
 import {emailService} from "./email.service";
 import {userService} from "./user.service";
-import {EmailTopicsConstants} from "../constants/error.constants";
 import {TemplateNames} from "../constants/templates.constants";
+import {EmailTopicsConstants} from "../constants/emailTopic.constants";
 
 class CommunicationService {
     // The manager is selected randomly from the database to ensure that emails
@@ -16,6 +16,20 @@ class CommunicationService {
             TemplateNames.CAR_BRAND_REQUEST,
             {
                 brandName: carBrand,
+            }
+        );
+    }
+
+    public async sendCarModelRequest(carBrand: string, carModel: string): Promise<void> {
+        // const manager = await userService.getManager();
+
+        await emailService.sendEmail(
+            "olgamraka@gmail.com",
+            EmailTopicsConstants.NEW_CAR_MODEL_REQUEST,
+            TemplateNames.CAR_MODEL_REQUEST,
+            {
+                carBrand: carBrand,
+                carModel: carModel,
             }
         );
     }
