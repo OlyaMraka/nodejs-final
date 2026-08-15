@@ -54,6 +54,7 @@ EMAIL_PASSWORD=your-email-app-password
 | `EMAIL_USER` / `EMAIL_PASSWORD` | Mailbox used for notifications. | SMTP provider credentials; use an App Password for Gmail. |
 
 If the Atlas password contains special characters, URL-encode them. For example, `@` becomes `%40`.
+LIFETIME veriables are used in cron which deletes old tokens from DB(so better to set n minutes, for correct work)!!!
 
 Before starting the API, open MongoDB Atlas → **Network Access** and add the public IP address of the machine that runs the API. For AWS, allow the application’s configured outbound IP or VPC connection.
 
