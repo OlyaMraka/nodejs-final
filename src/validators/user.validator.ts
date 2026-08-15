@@ -36,7 +36,6 @@ export class UserValidator {
         surname: this.surname.required(),
         age: this.age.required(),
         phone: this.phone.required(),
-        email: this.email.required(),
-        accountType: this.accountType.required(),
+        email: this.email.required()
     });
 }

@@ -4,6 +4,7 @@ import {commonMiddleware} from "../middleware/common.middleware";
 import {authMiddleware} from "../middleware/auth.middleware";
 import {permissionMiddleware} from "../middleware/permissions.middleware";
 import {PermissionType} from "../enums/permission-types";
+import {userMiddleware} from "../middleware/user.middleware";
 
 const router = Router();
 
@@ -25,6 +26,7 @@ router.put(
     '/:id',
     commonMiddleware.isIdValid("id"),
     authMiddleware.checkAccessToken(),
+    userMiddleware.checkOwnership(),
     userController.UpdateById);
 
 router.delete(
